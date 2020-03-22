@@ -49,10 +49,14 @@ def login(request):
                 response_data['message'] = 'The user does not exist or the password is incorrect'
                 return JsonResponse(response_data,status=401)
             #TAKE PASSWORD OF THE USER
-            password = userObj.password
+            password = json_data['password']
+            hassedPassword = userObj.password
             #CHECK IF PASSWORD IS CORRECT
-
-
+            passwordIsCorrect = check_password(password, hassedPassword)
+            if passwordIsCorrect == False:
+                response_data['result'] = 'error'
+                response_data['message'] = 'The user does not exist or the password is incorrect'
+                return JsonResponse(response_data, status = 401)
             #CHECK IF USER HAS API-KEY
             #obj.api_key = newApiKey
             #obj.save()
