@@ -27,13 +27,29 @@ def login(request):
         if isJson == True:
             Json_data = json.loads(request.body)
             #CHECK JSON CONTENT
+            missingAttr = False
+            missingAttrMsg = ""
 
+            if 'user' not in json_data:
+                missingAttr = True
+                missingAttrMsg = "User is required"
+            elif 'password' not in json_data:
+                missingAttr = True
+                missingAttrMsg = "Password is required"
 
+            if missingAttr == True:
+                response_data['result'] = 'error'
+                response_data['message'] = missingAttrMsg
+                return JsonResponse(response_data, status=401)
             #CHECK IF USER EXITST
-
-
+            try:
+                userObj = ApiUsers.objects.get(user = json_data['user'])
+            except Entry.DoesNotExist as e:
+                response_data['result'] = 'error'
+                response_data['message'] = 'The user does not exist or the password is incorrect'
+                return JsonResponse(response_data,status=401)
             #TAKE PASSWORD OF THE USER
-
+            password = userObj.password
             #CHECK IF PASSWORD IS CORRECT
 
 
