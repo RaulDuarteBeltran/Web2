@@ -60,11 +60,12 @@ docker exec -i dbcontainername mysql -u username -ppassword --default-character-
 docker exec containername python manage.py inspectdb > models.py
 
 #APPLY MODELDS
+docker exec containername python manage.py makemigrations
 docker exec containername python manage.py migrate
 
 
 PASOS PARA CREAR UN API
-#1 CREAR IMAGEN Y REPOSITORIO 
+#1 CREAR IMAGEN Y REPOSITORIO
 
 #2 CONFIGURAR DJANGO CON MYSQL
 
@@ -97,5 +98,3 @@ API PARA IOS
 #7 Crear modelo
 
 #8 Proceso de cada método
-
-
