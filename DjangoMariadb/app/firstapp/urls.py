@@ -22,7 +22,8 @@ urlpatterns = [
     path('client/movies', views.getMovies, name='getMovies'),
 
     #Parte de Clientes
-    path('generate_password/<str:password>', ClientView.makepassword, name='makepassword')
+    path('generate_password/<str:password>', ClientView.makepassword, name='makepassword'),
+    path('client/login', ClientView.login, name='login'),
 
 
 ]
