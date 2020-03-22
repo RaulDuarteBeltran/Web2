@@ -24,3 +24,12 @@ class Movie(models.Model):
     class Meta:
         managed = False
         db_table = 'movie'
+
+class ApiUsers(models.Model):
+    user = models.CharField(max_length=250)
+    password = models.CharField(max_length=250)
+    api_key = models.CharField(max_length=250, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'api_users'

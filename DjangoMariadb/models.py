@@ -8,6 +8,16 @@
 from django.db import models
 
 
+class ApiUsers(models.Model):
+    user = models.CharField(max_length=250)
+    password = models.CharField(max_length=250)
+    api_key = models.CharField(max_length=250, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'api_users'
+
+
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
 
