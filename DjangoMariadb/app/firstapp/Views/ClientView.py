@@ -18,25 +18,24 @@ def makepassword(request, password):
 
 
 def login(request):
-
     #VALIDATE METHOD
     if request.method == 'POST':
         #DECLARE RESPONSE
-        responseData = {}
+        response_data = {}
         #CHECK JSON STRUCTURE
         isJson = is_json(request.body)
         if isJson == True:
-            Json_data = json.loads(request.body)
+            json_data = json.loads(request.body)
             #CHECK JSON CONTENT
             missingAttr = False
             missingAttrMsg = ""
 
             if 'user' not in json_data:
                 missingAttr = True
-                missingAttrMsg = "User is required"
+                missingAttrMsg = "user is required"
             elif 'password' not in json_data:
                 missingAttr = True
-                missingAttrMsg = "Password is required"
+                missingAttrMsg = "password is required"
 
             if missingAttr == True:
                 response_data['result'] = 'error'
@@ -45,7 +44,7 @@ def login(request):
             #CHECK IF USER EXITST
             try:
                 userObj = ApiUsers.objects.get(user = json_data['user'])
-            except Entry.DoesNotExist as e:
+            except Exception as e:
                 response_data['result'] = 'error'
                 response_data['message'] = 'The user does not exist or the password is incorrect'
                 return JsonResponse(response_data,status=401)
@@ -59,7 +58,7 @@ def login(request):
                 response_data['message'] = 'The user does not exist or the password is incorrect'
                 return JsonResponse(response_data, status = 401)
             #CHECK IF USER HAS API-KEY
-            if userObj.api_key == "":
+            if userObj.api_key==None:
                 newApiKey = ApiKey().generate_key_complex()
                 userObj.api_key = newApiKey
                 userObj.save()
@@ -70,11 +69,11 @@ def login(request):
             return JsonResponse(response_data,status=200)
         else:
             response_data['result'] = 'error'
-            responseData['message'] = 'Invalid Json'
-            return JsonResponse(responseData, status=400)
+            response_data['message'] = 'Invalid Json'
+            return JsonResponse(response_data, status=400)
 
     else:
-        responseData = {}
-        responseData['result'] = 'error'
-        responseData['message'] = 'Invalid Request'
-        return JsonResponse(responseData, status=400)
+        response_data = {}
+        response_data['result'] = 'error'
+        response_data['message'] = 'Invalid Request'
+        return JsonResponse(response_data, status=400)

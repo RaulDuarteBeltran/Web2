@@ -18,7 +18,7 @@ urlpatterns = [
     path('states/<int:id>/',EjemploStates.results, name='getState'),
 
     #Parte de movies
-    path('client/login', views.logUser, name='logUser'),
+    #path('client/login', views.logUser, name='logUser'),
     path('client/movies', views.getMovies, name='getMovies'),
 
     #Parte de Clientes
