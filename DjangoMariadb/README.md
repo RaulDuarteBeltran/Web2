@@ -61,6 +61,7 @@ docker exec containername python manage.py inspectdb > models.py
 
 #APPLY MODELDS
 docker exec containername python manage.py makemigrations
+
 docker exec containername python manage.py migrate
 
 
@@ -80,21 +81,3 @@ PASOS PARA CREAR UN API
 #6 REALIZAR ACCIONES ESPECÍFICAS PARA CADA ENDPOINT
 
 #7 IMPLEMENTACIÓN
-
-
-API PARA IOS
-#1 Cargar tabla movies.sql
-
-#2 Migrar tabla para crear modelo
-
-#3 Crear modelo
-
-#4 Crear end points
-
-#5 Crear views y validar metodo
-
-#6 Migrar tabla de usuarios
-
-#7 Crear modelo
-
-#8 Proceso de cada método

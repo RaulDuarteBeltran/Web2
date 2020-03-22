@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 from . import EjemploStates
+from .Views import ClientView
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -19,6 +20,9 @@ urlpatterns = [
     #Parte de movies
     path('client/login', views.logUser, name='logUser'),
     path('client/movies', views.getMovies, name='getMovies'),
+
+    #Parte de Clientes
+    path('generate_password/<str:password>', ClientView.makepassword, name='makepassword')
 
 
 ]
