@@ -7,6 +7,7 @@ import json
 from firstapp.JsonCheckClass import *
 #IMPORT DJANGO PASSWORD HASH GENERATOR AND COMPARE
 from django.contrib.auth.hashers import make_password, check_password
+from firstapp.JsonCheck import *
 
 def makepassword(request, password):
     hashPassword = make_password(password)
@@ -19,30 +20,33 @@ def login(request):
 
     #VALIDATE METHOD
     if request.method == 'POST':
-
         #DECLARE RESPONSE
         responseData = {}
-
         #CHECK JSON STRUCTURE
+        isJson = is_json(request.body)
+        if isJson == True:
+            Json_data = json.loads(request.body)
+            #CHECK JSON CONTENT
 
 
-        #CHECK JSON CONTENT
+            #CHECK IF USER EXITST
 
 
-        #CHECK IF USER EXITST
+            #TAKE PASSWORD OF THE USER
+
+            #CHECK IF PASSWORD IS CORRECT
 
 
-        #TAKE PASSWORD OF THE USER
-
-        #CHECK IF PASSWORD IS CORRECT
-
-
-        #CHECK IF USER HAS API-KEY
-        #obj.api_key = newApiKey
-        #obj.save()
+            #CHECK IF USER HAS API-KEY
+            #obj.api_key = newApiKey
+            #obj.save()
 
 
-        #RETURN RESPONSE
+            #RETURN RESPONSE
+        else:
+            response_data['result'] = 'error'
+            responseData['message'] = 'Invalid Json'
+            return JsonResponse(responseData, status=400)
 
     else:
         responseData = {}
