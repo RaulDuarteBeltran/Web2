@@ -8,6 +8,7 @@ from firstapp.JsonCheckClass import *
 #IMPORT DJANGO PASSWORD HASH GENERATOR AND COMPARE
 from django.contrib.auth.hashers import make_password, check_password
 from firstapp.JsonCheck import *
+from firstapp.customClasses import *
 
 def makepassword(request, password):
     hashPassword = make_password(password)
@@ -58,11 +59,15 @@ def login(request):
                 response_data['message'] = 'The user does not exist or the password is incorrect'
                 return JsonResponse(response_data, status = 401)
             #CHECK IF USER HAS API-KEY
-            #obj.api_key = newApiKey
-            #obj.save()
-
-
+            if userObj.api_key == "":
+                newApiKey = ApiKey().generate_key_complex()
+                userObj.api_key = newApiKey
+                userObj.save()
             #RETURN RESPONSE
+            response_data['result'] = 'success'
+            response_data['message'] = 'Valid Credentials'
+            response_data['userApiKey'] = userObj.api_key
+            return JsonResponse(response_data,status=200)
         else:
             response_data['result'] = 'error'
             responseData['message'] = 'Invalid Json'
