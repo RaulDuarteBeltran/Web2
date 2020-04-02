@@ -22,6 +22,8 @@ services:
       context: .
     ports:
       - "80:8000"
+    depends_on:
+      - "db"
     volumes:
       - ./app:/app
     command: >
